@@ -3,241 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Joining App - Pro Demo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>SoulPulse - AI Spiritual Companion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Serif+SC:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        :root {
-            --primary: #007AFF;
-            --accent: #00F2FF;
-            --bg: #05070A;
-            --glass: rgba(255, 255, 255, 0.08);
-            --border: rgba(255, 255, 255, 0.12);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-
-        body, html {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
-        }
-
-        /* Responsive Wrapper */
-        .wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* App Container */
-        .app-container {
-            width: 100%;
-            height: 100%;
-            background: var(--bg);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        /* Desktop specific styling */
-        @media (min-width: 1025px) {
-            .wrapper {
-                background: radial-gradient(circle at 50% 10%, #1a237e 0%, #000 70%);
-                gap: 60px;
-            }
-            .app-container {
-                width: 390px;
-                height: 844px;
-                border-radius: 44px;
-                border: 8px solid #222;
-                box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            }
-            .instruction { display: block !important; width: 320px; }
-        }
-
-        .instruction { display: none; }
-
-        /* App Content */
-        #viewport { flex: 1; position: relative; overflow: hidden; }
-        
-        .page {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            padding: 60px 24px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .page.active { opacity: 1; pointer-events: auto; }
-
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 24px;
-        }
-
-        /* Page: Map */
-        #map { background: #000; padding: 0; }
-        .map-ui {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            z-index: 10;
-            padding: 70px 24px 30px;
-            display: flex;
-            flex-direction: column;
-            pointer-events: none;
-        }
-        .map-ui * { pointer-events: auto; }
-
-        .brand { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
-        .status { font-size: 12px; color: var(--accent); margin-top: 8px; }
-
-        .ping-btn {
-            margin-top: auto;
-            background: var(--primary);
-            border: none;
-            padding: 18px;
-            border-radius: 16px;
-            color: white;
-            font-weight: 700;
-            width: 100%;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0, 122, 255, 0.3);
-        }
-
-        /* Page: Schedule */
-        .bento-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .bento-item {
-            background: var(--glass);
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        .bento-item.wide { grid-column: span 2; }
-        .bento-item h4 { font-size: 20px; margin-bottom: 4px; }
-        .bento-item p { font-size: 13px; color: rgba(255,255,255,0.5); }
-
-        /* Tab Bar */
-        .tab-bar {
-            height: 90px;
-            background: rgba(10, 10, 10, 0.95);
-            display: flex;
-            justify-content: space-around;
-            padding-bottom: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-        .tab {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 10px;
-            cursor: pointer;
-        }
-        .tab.active { color: var(--primary); }
-        .tab i { margin-bottom: 4px; width: 20px; height: 20px; }
-    </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="app-container">
+            <div class="aura"></div>
             <div id="viewport">
-                <!-- MAP -->
-                <div id="page-map" class="page active">
-                    <div class="map-ui">
-                        <h1 class="brand">Joining</h1>
-                        <p class="status">● 1,999 Stars Online</p>
-                        <button class="ping-btn">点亮荧光棒</button>
-                    </div>
-                    <canvas id="map-canvas" style="width:100%; height:100%;"></canvas>
+                <header>
+                    <div class="logo">SoulPulse</div>
+                    <div class="subtitle">AI Spiritual Companion</div>
+                </header>
+
+                <div id="message-area">
+                    <p id="response-text" class="divine-text">
+                        “倾诉你当下的重担，<br>我会为你在这片寂静中寻找光。”
+                    </p>
                 </div>
 
-                <!-- SCHEDULE -->
-                <div id="page-schedule" class="page">
-                    <h2>2026 巡演行程</h2>
-                    <div class="bento-grid">
-                        <div class="bento-item wide">
-                            <h4>香港站</h4>
-                            <p>启德主场馆 · 03.24</p>
-                        </div>
-                        <div class="bento-item">
-                            <h4>北京站</h4>
-                            <p>国家体育场</p>
-                        </div>
-                        <div class="bento-item">
-                            <h4>上海站</h4>
-                            <p>上海体育场</p>
-                        </div>
-                    </div>
+                <div class="input-card">
+                    <textarea id="user-input" placeholder="输入你的困惑或祈愿..."></textarea>
+                    <button id="send-btn" class="action-btn">
+                        <i data-lucide="sparkles"></i>
+                        领受启示
+                    </button>
                 </div>
             </div>
 
-            <nav class="tab-bar">
-                <div class="tab active" onclick="show('map')">
-                    <i data-lucide="music-2"></i>
-                    <span>星海</span>
-                </div>
-                <div class="tab" onclick="show('schedule')">
-                    <i data-lucide="calendar-days"></i>
-                    <span>行程</span>
-                </div>
-                <div class="tab">
-                    <i data-lucide="award"></i>
-                    <span>自传</span>
-                </div>
+            <nav>
+                <div class="tab active"><i data-lucide="moon"></i><span>灵修</span></div>
+                <div class="tab"><i data-lucide="scroll-text"></i><span>经文</span></div>
+                <div class="tab"><i data-lucide="flame"></i><span>祭坛</span></div>
             </nav>
         </div>
 
         <div class="instruction">
-            <h2>Joining Pro</h2>
-            <p>基于 UI/UX Pro Max 规范设计</p>
+            <h2 style="font-family:'Noto Serif SC', serif; letter-spacing: 2px;">SoulPulse Pro</h2>
+            <p style="color: #666; margin-top: 10px;">基于 <b>UI/UX Pro Max</b> 规范设计。</p>
+            <p style="color: #444; font-size: 13px; margin-top: 5px;">专注精神抚慰与灵性交互的高溢价工具。</p>
         </div>
     </div>
 
-    <script>
-        lucide.createIcons();
-        
-        function show(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-' + id).classList.add('active');
-            
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-        }
-
-        // Simple starfield
-        const canvas = document.getElementById('map-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        function drawStars() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            for(let i=0; i<100; i++) {
-                ctx.fillStyle = '#00F2FF';
-                ctx.beginPath();
-                ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, Math.random()*2, 0, Math.PI*2);
-                ctx.fill();
-            }
-        }
-        drawStars();
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>
