@@ -5,7 +5,8 @@ const pages = document.querySelectorAll('.page');
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
         const targetPage = tab.dataset.page;
-        
+        if (!targetPage) return;
+
         // Update Tabs
         tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
@@ -20,34 +21,47 @@ tabs.forEach(tab => {
     });
 });
 
-// Map Logic
+// Map Engine (Advanced Stars)
 const canvas = document.getElementById('map-canvas');
 const ctx = canvas.getContext('2d');
 let stars = [];
 
 function resizeMap() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    const parent = canvas.parentElement;
+    canvas.width = parent.offsetWidth;
+    canvas.height = parent.offsetHeight;
 }
 
 window.addEventListener('resize', resizeMap);
 resizeMap();
 
 class Star {
-    constructor(x, y) {
+    constructor(x, y, isBurst = false) {
         this.x = x || Math.random() * canvas.width;
         this.y = y || Math.random() * canvas.height;
-        this.size = Math.random() * 2;
+        this.size = isBurst ? Math.random() * 3 + 1 : Math.random() * 1.5;
         this.opacity = Math.random();
-        this.blinkSpeed = 0.01 + Math.random() * 0.02;
+        this.blinkSpeed = 0.005 + Math.random() * 0.01;
+        this.vx = isBurst ? (Math.random() - 0.5) * 4 : 0;
+        this.vy = isBurst ? (Math.random() - 0.5) * 4 : 0;
+        this.life = isBurst ? 100 : Infinity;
+    }
+
+    update() {
+        if (this.life !== Infinity) {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.life--;
+            this.opacity = this.life / 100;
+        } else {
+            this.opacity += this.blinkSpeed;
+            if(this.opacity > 1 || this.opacity < 0) this.blinkSpeed *= -1;
+        }
     }
 
     draw() {
-        this.opacity += this.blinkSpeed;
-        if(this.opacity > 1 || this.opacity < 0) this.blinkSpeed *= -1;
-        
         ctx.fillStyle = `rgba(0, 242, 255, ${this.opacity})`;
-        ctx.shadowBlur = 5;
+        ctx.shadowBlur = this.size * 4;
         ctx.shadowColor = '#00F2FF';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -55,38 +69,42 @@ class Star {
     }
 }
 
-for(let i=0; i<150; i++) stars.push(new Star());
+// Initial Starfield
+for(let i=0; i<200; i++) stars.push(new Star());
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    stars.forEach(s => s.draw());
+    stars = stars.filter(s => s.life > 0);
+    stars.forEach(s => {
+        s.update();
+        s.draw();
+    });
     requestAnimationFrame(animate);
 }
 animate();
 
-// Ping Interaction
+// Interaction: Ping / Burst
 const pingBtn = document.getElementById('ping-btn');
 pingBtn.addEventListener('click', () => {
-    // Add 10 quick bursts of stars
-    for(let i=0; i<20; i++) {
-        const x = canvas.width/2 + (Math.random() - 0.5) * 100;
-        const y = canvas.height/2 + (Math.random() - 0.5) * 100;
-        stars.push(new Star(x, y));
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    
+    // Create burst stars
+    for(let i=0; i<40; i++) {
+        stars.push(new Star(centerX, centerY, true));
     }
     
-    // Alert-like interaction feedback
-    const feedback = document.createElement('div');
-    feedback.innerText = "✨ 已点亮你的荧光棒";
-    feedback.style.position = 'absolute';
-    feedback.style.top = '50%';
-    feedback.style.left = '50%';
-    feedback.style.transform = 'translate(-50%, -50%)';
-    feedback.style.background = 'rgba(0,0,0,0.8)';
-    feedback.style.color = 'white';
-    feedback.style.padding = '10px 20px';
-    feedback.style.borderRadius = '20px';
-    feedback.style.zIndex = '1000';
-    document.querySelector('.screen').appendChild(feedback);
-    
-    setTimeout(() => feedback.remove(), 2000);
+    // Haptic-like visual feedback
+    const btn = document.getElementById('ping-btn');
+    btn.style.transform = "scale(0.95)";
+    setTimeout(() => btn.style.transform = "scale(1)", 100);
 });
+
+// Auto-refresh Lucide on page switch (if needed)
+// observer could be used but simple call is fine here
+function refreshIcons() {
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+}
+tabs.forEach(t => t.addEventListener('click', refreshIcons));
