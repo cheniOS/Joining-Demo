@@ -4,162 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joining App - UI UX Pro Max Demo</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #fff; font-family: sans-serif; }
+        .screen { width: 100%; height: 100%; display: flex; flex-direction: column; }
+        .content { flex: 1; padding: 40px; }
+        h1 { font-size: 32px; margin-bottom: 10px; }
+        .tab-bar { height: 80px; background: #111; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #333; }
+        .tab { color: #888; }
+        .tab.active { color: #007AFF; }
+    </style>
 </head>
 <body>
-    <div class="desktop-bg">
-        <div class="iphone-frame">
-            <div class="dynamic-island"></div>
-            <div class="screen">
-                <!-- App Content -->
-                <div id="app-viewport">
-                    
-                    <!-- PAGE: MAP -->
-                    <div id="page-map" class="page active">
-                        <div class="map-overlay">
-                            <header class="top-nav">
-                                <div class="nav-content">
-                                    <h1 class="brand-title">Joining</h1>
-                                    <div class="status-pill">
-                                        <span class="pulse"></span>
-                                        1,999 Stars Online
-                                    </div>
-                                </div>
-                            </header>
-                            
-                            <div class="map-bottom-ui">
-                                <div class="action-card glass">
-                                    <h3>点亮那一首歌</h3>
-                                    <p>当前同步人数：421</p>
-                                    <button class="neon-btn" id="ping-btn">
-                                        <i data-lucide="sparkles"></i>
-                                        点亮荧光棒
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="map-canvas"></canvas>
-                    </div>
-
-                    <!-- PAGE: SCHEDULE (Bento Grid Style) -->
-                    <div id="page-schedule" class="page">
-                        <div class="scroll-container">
-                            <div class="section-header">
-                                <h2>2026 巡演行程</h2>
-                                <p>Time is a journey, and we're here.</p>
-                            </div>
-                            
-                            <div class="bento-grid">
-                                <div class="bento-item wide glass highlight">
-                                    <div class="bento-label">最近站</div>
-                                    <div class="bento-main">
-                                        <h3>香港站</h3>
-                                        <p>启德主场馆 (启德体育园)</p>
-                                    </div>
-                                    <div class="bento-footer">
-                                        <span class="date-badge">03.24 - 03.28</span>
-                                        <span class="status-tag">待开票</span>
-                                    </div>
-                                </div>
-
-                                <div class="bento-item glass">
-                                    <div class="icon-circle bg-blue"><i data-lucide="map-pin"></i></div>
-                                    <h4>北京站</h4>
-                                    <p>国家体育场</p>
-                                    <span class="tag-sm">筹备中</span>
-                                </div>
-
-                                <div class="bento-item glass">
-                                    <div class="icon-circle bg-purple"><i data-lucide="music"></i></div>
-                                    <h4>上海站</h4>
-                                    <p>上海体育场</p>
-                                    <span class="tag-sm">筹备中</span>
-                                </div>
-
-                                <div class="bento-item glass tall">
-                                    <div class="bento-content">
-                                        <i data-lucide="bell"></i>
-                                        <h4>开票提醒</h4>
-                                        <p>抢票不再错过</p>
-                                        <button class="text-btn">立即开启</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="bento-item glass">
-                                    <div class="icon-circle bg-cyan"><i data-lucide="ticket"></i></div>
-                                    <h4>广州站</h4>
-                                    <p>待定</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PAGE: POSTER -->
-                    <div id="page-poster" class="page">
-                        <div class="scroll-container">
-                            <div class="section-header">
-                                <h2>人生自传</h2>
-                                <p>每一个时刻，都有一首歌。</p>
-                            </div>
-                            
-                            <div class="poster-preview-card glass">
-                                <div class="poster-mockup">
-                                    <div class="poster-overlay"></div>
-                                    <div class="poster-content">
-                                        <span class="poster-year">2024</span>
-                                        <h3 class="poster-song">《倔强》</h3>
-                                        <p class="poster-event">北京鸟巢演唱会</p>
-                                    </div>
-                                </div>
-                                <div class="card-info">
-                                    <p>生成你的专属五迷自传海报</p>
-                                    <button class="primary-btn-wide">
-                                        <i data-lucide="pen-tool"></i>
-                                        立刻开始
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Tab Bar -->
-                <nav class="tab-bar">
-                    <div class="tab-item active" data-page="map">
-                        <i data-lucide="navigation"></i>
-                        <span>星海</span>
-                    </div>
-                    <div class="tab-item" data-page="schedule">
-                        <i data-lucide="calendar"></i>
-                        <span>行程</span>
-                    </div>
-                    <div class="tab-item" data-page="poster">
-                        <i data-lucide="book-open"></i>
-                        <span>自传</span>
-                    </div>
-                    <div class="tab-item" data-page="profile">
-                        <i data-lucide="user"></i>
-                        <span>我的</span>
-                    </div>
-                </nav>
+    <div class="screen">
+        <div class="content">
+            <h1>Joining</h1>
+            <p>1,999 Stars Online</p>
+            <div style="margin-top: 40px; background: #222; padding: 20px; border-radius: 15px;">
+                <h3>香港站</h3>
+                <p>启德主场馆</p>
             </div>
         </div>
-        
-        <div class="instruction">
-            <h3>Joining Pro Demo</h3>
-            <p>基于 <b>UI/UX Pro Max</b> 重新设计。</p>
-            <div class="tech-stack">
-                <span>Inter Font</span>
-                <span>Glassmorphism 2.0</span>
-                <span>Bento Grid</span>
-            </div>
+        <div class="tab-bar">
+            <div class="tab active">星海</div>
+            <div class="tab">行程</div>
+            <div class="tab">自传</div>
         </div>
     </div>
-    <script src="main.js"></script>
-    <script>lucide.createIcons();</script>
 </body>
 </html>
