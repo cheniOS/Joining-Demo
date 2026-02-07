@@ -14,47 +14,79 @@ body, html {
     overflow: hidden;
 }
 
-.desktop-bg {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
-    gap: 50px;
+/* Desktop view shows the iPhone Frame */
+@media (min-width: 500px) {
+    .desktop-bg {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+        gap: 50px;
+    }
+
+    .iphone-frame {
+        width: 390px;
+        height: 844px;
+        background: #222;
+        border: 12px solid #333;
+        border-radius: 60px;
+        position: relative;
+        box-shadow: 0 50px 100px rgba(0,0,0,0.8), 0 0 0 4px #444;
+    }
+
+    .dynamic-island {
+        position: absolute;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 35px;
+        background: black;
+        border-radius: 20px;
+        z-index: 100;
+    }
+
+    .screen {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--ios-bg);
+        border-radius: 48px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .instruction {
+        max-width: 300px;
+        color: #888;
+    }
 }
 
-/* iPhone Frame */
-.iphone-frame {
-    width: 390px;
-    height: 844px;
-    background: #222;
-    border: 12px solid #333;
-    border-radius: 60px;
-    position: relative;
-    box-shadow: 0 50px 100px rgba(0,0,0,0.8), 0 0 0 4px #444;
-}
+/* Mobile view: The app fills the entire screen */
+@media (max-width: 499px) {
+    .iphone-frame, .dynamic-island {
+        display: none;
+    }
+    
+    .desktop-bg {
+        display: block;
+        height: 100vh;
+        background: black;
+    }
 
-.dynamic-island {
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 35px;
-    background: black;
-    border-radius: 20px;
-    z-index: 100;
-}
+    .screen {
+        width: 100%;
+        height: 100%;
+        background: var(--ios-bg);
+        display: flex;
+        flex-direction: column;
+    }
 
-.screen {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--ios-bg);
-    border-radius: 48px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    .instruction {
+        display: none;
+    }
 }
 
 #app-viewport {
