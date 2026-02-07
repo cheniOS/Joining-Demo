@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joining App - Interactive Demo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="desktop-bg">
+        <div class="iphone-frame">
+            <div class="dynamic-island"></div>
+            <div class="screen">
+                <!-- App Content Starts Here -->
+                <div id="app-viewport">
+                    <!-- Page 1: Map (Initial) -->
+                    <div id="page-map" class="page active">
+                        <div class="map-overlay">
+                            <div class="top-nav">
+                                <h1>Joining</h1>
+                                <div class="online-status">● 1,999 颗星在线</div>
+                            </div>
+                            <div class="map-controls">
+                                <button class="ping-btn" id="ping-btn">点亮荧光棒</button>
+                            </div>
+                        </div>
+                        <div id="map-canvas-container">
+                            <canvas id="map-canvas"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Page 2: Schedule -->
+                    <div id="page-schedule" class="page">
+                        <div class="page-header">
+                            <h2>巡演行程</h2>
+                        </div>
+                        <div class="concert-list">
+                            <div class="concert-card">
+                                <div class="city">香港站</div>
+                                <div class="venue">启德主场馆</div>
+                                <div class="date">03.24 - 03.28</div>
+                                <div class="tag">待开票</div>
+                            </div>
+                            <div class="concert-card">
+                                <div class="city">北京站</div>
+                                <div class="venue">国家体育场</div>
+                                <div class="date">网传近期</div>
+                                <div class="tag secondary">筹备中</div>
+                            </div>
+                            <div class="concert-card">
+                                <div class="city">上海站</div>
+                                <div class="venue">上海体育场</div>
+                                <div class="date">待公布</div>
+                                <div class="tag lock">待解锁</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3: Poster -->
+                    <div id="page-poster" class="page">
+                        <div class="page-header">
+                            <h2>人生自传</h2>
+                        </div>
+                        <div class="poster-ui">
+                            <div class="mock-poster">
+                                <div class="poster-glow"></div>
+                                <span>《倔强》</span>
+                            </div>
+                            <button class="primary-btn">创建我的海报</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Tab Bar -->
+                <nav class="tab-bar">
+                    <div class="tab-item active" data-page="map">
+                        <div class="icon">📍</div>
+                        <span>星海</span>
+                    </div>
+                    <div class="tab-item" data-page="schedule">
+                        <div class="icon">📅</div>
+                        <span>行程</span>
+                    </div>
+                    <div class="tab-item" data-page="poster">
+                        <div class="icon">📖</div>
+                        <span>自传</span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
+        <div class="instruction">
+            <h3>Joining App 交互演示</h3>
+            <p>点击下方标签切换页面，或点击“点亮荧光棒”触发交互</p>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
